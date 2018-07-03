@@ -1,0 +1,7 @@
+[04-Jun-2018 16:35:16 America/Chicago] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/webqbox/public_html/leda/php/logout.php on line 2
+[04-Jun-2018 16:35:30 America/Chicago] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/webqbox/public_html/leda/php/logout.php on line 2
+[04-Jun-2018 16:36:07 America/Chicago] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/webqbox/public_html/leda/php/logout.php on line 2
+[04-Jun-2018 16:37:12 America/Chicago] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/webqbox/public_html/leda/php/logout.php on line 2
+[04-Jun-2018 16:37:43 America/Chicago] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/webqbox/public_html/leda/php/logout.php on line 2
+[04-Jun-2018 16:38:13 America/Chicago] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/webqbox/public_html/leda/php/logout.php on line 2
+[04-Jun-2018 16:38:39 America/Chicago] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/webqbox/public_html/leda/php/logout.php on line 2

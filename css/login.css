@@ -1,0 +1,21 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    color: #c3c3c3;
+}
+
+.bg-login {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-login {
+    background-image: url("../images/bg.jpg");
+    height: 100%;
+}
+.title-leda{
+    font-size: 70px;
+}
