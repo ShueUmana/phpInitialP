@@ -1,16 +1,16 @@
-<?php include("./php/unidades/get_list_unidades.php");?>
+<?php include("./php/subunidades/get_list_subunidades.php");?>
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Administración y control de unidades</h3>
+        <h3 class="box-title">Administración y control de Subunidades</h3>
         <?php if(RO_LE!=-1){ ?>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newRegister"><i class="fa fa-plus" aria-hidden="true"></i></button>
         <?php }?>
         
     </div>
     <div class="box-header">
-    <h4 class="box-title">Ver SubUnidades</h4>
+    <h4 class="box-title">Regresar a Unidades</h4>
         <?php if(RO_LE!=-1){ ?>
-            <a href="?action=subunidades" class="btn btn-info" ><i class="fa fa-plus"></i></a>
+            <a href="?action=unidades" class="btn btn-info" ><i class="fa fa-arrow-left"></i></a>
         <?php }?>
     </div>
     <!-- /.box-header -->
@@ -19,20 +19,22 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>Unidad asignada</th>
                     <th>Estado</th>
                     <?php if(RO_LE!=-1){ echo"<th>Opciones</th>";} ?>                                      
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($resultado as $k){?>
-                <tr id="row-<?=$k['id_unidad']?>">
+                <tr id="row-<?=$k['id_subunidad']?>">
                     <td><?=$k['nombre']?></td>
-                    <td><span id="estado-<?=$k['id_unidad']?>" class="<?php echo ($k['estado']=='Activo')?'dot_green':'dot_red';?>"></span></td>  
+                    <td><?=$k['unidad']?></td>
+                    <td><span id="estado-<?=$k['id_subunidad']?>" class="<?php echo ($k['estado']=='Activo')?'dot_green':'dot_red';?>"></span></td>  
                     <?php if((RO_LE!=-1)){ ?>
                         <td>
-                            <button type="button" onclick="be_edit_unidad(<?=$k['id_unidad']?>)"class="btn btn-info"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            <button type="button" onclick="be_edit_subunidad(<?=$k['id_subunidad']?>)"class="btn btn-info"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                             <?php if($k['estado']!='Inactivo'){?>
-                            <button id="delete-<?=$k['id_unidad']?>" type="button" onclick="be_delete_unidad(<?=$k['id_unidad']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button id="delete-<?=$k['id_subunidad']?>" type="button" onclick="be_delete_subunidad(<?=$k['id_subunidad']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             <?php }?>
                         </td>
                     <?php }else{?>
@@ -44,6 +46,7 @@
             <tfoot>
                 <tr>
                     <th>Nombre</th>
+                    <th>Unidad asignada</th>
                     <th>Estado</th>
                     <?php if(RO_LE!=-1){ echo"<th>Opciones</th>";} ?>
                 </tr>
@@ -67,7 +70,7 @@
       </div>
       
       </div>
-      <form class="form-horizontal" action="" id="newUnidad" name="newUnidad">
+      <form class="form-horizontal" action="" id="newsubUnidad" name="newsubUnidad">
       <input value="new" name="optionType" id="optionType" class="hidden" type="text">
       <input value="0" name="register_id" id="register_id" class="hidden" type="text">
         <div class="modal-body">
@@ -87,6 +90,13 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Unidad:</label>
+                    <div class="col-sm-8">
+                        <select  id="unidad" name="unidad" class="form-control">
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -97,4 +107,9 @@
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function() {
+    loadData("subUnidad")
+});
+</script>
 <!-- END MODAL NEW REGISTER -->

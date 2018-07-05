@@ -45,6 +45,9 @@ function loadData(option) {
     if (option == 'instructores') {
         tablasToGet = ["nombramiento", "unidad", "subUnidad"];
     }
+    if(option=='subUnidad'){
+        tablasToGet = ["unidad"];
+    }
     $.each(tablasToGet, function(index, value) {
         $.post('php/load_selects.php', { 'tabla': value })
             .done(function(data) {
@@ -278,6 +281,61 @@ function be_edit_unidad(id_edit) {
             $('#nombre').val(dataToEdit.nombre)
             $('#estado').val(dataToEdit.estado)
             $('#register_id').val(dataToEdit.id_unidad)
+            $('#optionType').val('update');
+            $('#title_new_update').html('Actualizar el registro')
+            $('#newRegister').modal('show');
+        });
+}
+/**
+ * --------- SUBUNIDADES ---------
+ * FUNCIONES PARA CONTROLAR EL CRUD, 
+ */
+// funcion para crear nueva subUnidad
+$("#newsubUnidad").submit(function(event) {
+    event.preventDefault();
+    $.post('php/subunidades/insert_subunidad.php', $('#newsubUnidad').serialize())
+        .done(function(data) {
+            if (data) {
+                window.location.replace("index.php?action=subunidades");
+            } else {
+                errorAlert('Control de Datos', 'La acción no pudo ser completada');
+            }
+        });
+});
+
+//funcion para inactivar instructor
+function be_delete_subunidad(id) {
+    $.fn.jAlert.defaults.confirmQuestion = '¿Desea inactivar la Sub-unidad?';
+    $.fn.jAlert.defaults.confirmBtnText = 'Si';
+    $.fn.jAlert.defaults.denyBtnText = 'No';
+    confirm(function(e, btn) { //event + button clicked
+        e.preventDefault();
+        $.post('php/subunidades/delete_subunidad.php', { id_inactiva: id })
+            .done(function(data) {
+                if (data) {
+                    successAlert('Control de Datos', 'El registro fue inactivado exitosamente');
+                    $('#estado-' + id).addClass("dot_red");
+                    $('#estado-' + id).removeClass("dot_green");
+                    $('#delete-' + id).remove();
+                } else {
+                    errorAlert('Control de Datos', 'La acción no pudo ser completada');
+                }
+            });
+    }, function(e, btn) {
+        e.preventDefault();
+    });
+}
+
+// funcion para editar nombramiento
+function be_edit_subunidad(id_edit) {
+    $.post('php/subunidades/get_subunidad.php', { id: id_edit })
+        .done(function(data) {
+            console.log(data);
+            dataToEdit = JSON.parse(data);
+            $('#nombre').val(dataToEdit.nombre)
+            $('#estado').val(dataToEdit.estado)
+            $('#unidad').val(dataToEdit.fk_idUnidad)
+            $('#register_id').val(dataToEdit.id_subunidad)
             $('#optionType').val('update');
             $('#title_new_update').html('Actualizar el registro')
             $('#newRegister').modal('show');

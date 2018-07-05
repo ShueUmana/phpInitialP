@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    $( "#forgot" ).on( "click", function() {
+        infoAlert('Olvide mi contraseña', 'Si no recuerdas, tu contraseña, por favor dirige'+
+        ' un correo electrónico, solicitando el cambio de contraseña a la siguiente direccion:'+
+        '<br><br> <a href="mailto:olvide@necesitorecobrar.com">olvide@necesitorecobrar.com</a>');
+      });
+
     $("#loginform").submit(function(event) {
         event.preventDefault();
         email_post = $("#emailFrm").val();

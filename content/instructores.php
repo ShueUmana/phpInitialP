@@ -13,7 +13,6 @@
                 <tr>
                     <th>Cedula</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
                     <th>Correo</th>
                     <th>Telefono 1</th>
                     <th>Lugar Residencia</th>
@@ -30,7 +29,6 @@
                 <tr id="row-<?=$k['id']?>">
                     <td><?=$k['cedula']?></td>
                     <td><?=$k['nombre']?></td>
-                    <td><?=$k['apellido']?></td>
                     <td><?=$k['correo']?></td>
                     <td><?=$k['telefono1']?></td>
                     <td><?=$k['lugar_Residencia']?></td>      
@@ -56,7 +54,6 @@
                 <tr>
                    <th>Cedula</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
                     <th>Correo</th>
                     <th>Telefono 1</th>
                     <th>Lugar Residencia</th>

@@ -26,6 +26,8 @@ if(isset($_SESSION['correo'])){
     <!-- login bg control-->
     <link rel="stylesheet" href="css/login.css">
 
+    <link rel="stylesheet" href="plugins/jAlert/jAlert.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -73,7 +75,7 @@ if(isset($_SESSION['correo'])){
                     </form>
 
                     <!-- /.social-auth-links -->
-                    <a href="#" class="text-center">Olvide mi contraseña</a><br>
+                    <a href="#" id="forgot" class="text-center">Olvide mi contraseña</a><br>
                 </div>
                 <h4 align="center">UDIPE, INA</h4>
                 <!-- /.login-box-body -->
@@ -88,6 +90,10 @@ if(isset($_SESSION['correo'])){
                 <!-- iCheck -->
                 <script src="plugins/iCheck/icheck.min.js"></script>
                 <script src="js/validate_login.js"></script>
+
+                <!-- Jalert -->
+                <script src="plugins/jAlert/jAlert.min.js"></script>
+                <script src="plugins/jAlert/jAlert-functions.min.js"></script>
             </div>
             </div>
         </div>    
