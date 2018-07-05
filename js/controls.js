@@ -330,7 +330,6 @@ function be_delete_subunidad(id) {
 function be_edit_subunidad(id_edit) {
     $.post('php/subunidades/get_subunidad.php', { id: id_edit })
         .done(function(data) {
-            console.log(data);
             dataToEdit = JSON.parse(data);
             $('#nombre').val(dataToEdit.nombre)
             $('#estado').val(dataToEdit.estado)
