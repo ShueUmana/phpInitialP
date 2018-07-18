@@ -1,10 +1,10 @@
 $(document).ready(function() {
     $( "#forgot" ).on( "click", function() {
-        infoAlert('Olvide mi contraseña', 'Si no recuerdas, tu contraseña, por favor dirige'+
-        ' un correo electrónico, solicitando el cambio de contraseña a la siguiente direccion:'+
-        '<br><br> <a href="mailto:olvide@necesitorecobrar.com">olvide@necesitorecobrar.com</a>');
-      });
-
+        infoAlert('¿Problemas para ingresar?', 'En caso de olvidar la contraseña ó de tener algún problema al ingresar, por favor envíe un correo detallando lo sucedido a'+
+        ' <a href="mailto:mrojasmontoya@ina.ac.cr">mrojasmontoya@ina.ac.cr</a>'+
+        '<br> y con gusto se le dará respuesta lo antes posible. ');
+    });
+    
     $("#loginform").submit(function(event) {
         event.preventDefault();
         email_post = $("#emailFrm").val();

@@ -6,11 +6,11 @@
     sub.nombre as subunidad_nombre, 
     nombra.nombre as nombramiento_nombre
         from instructores as ins
-        inner join unidad as u 
+        left join unidad as u 
             on ins.unidad = u.id_unidad
-        inner join subUnidad as sub 
+        left join subUnidad as sub 
             on ins.subunidad = sub.id_subunidad
-        inner join nombramiento as nombra 
+        left join nombramiento as nombra 
             on ins.tipo_Nombramiento = nombra.id_nombramiento;
     ";
     $result = mysqli_query($conn, $sql);

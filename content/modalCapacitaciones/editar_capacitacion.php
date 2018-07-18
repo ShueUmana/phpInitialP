@@ -1,75 +1,3 @@
-<?php include("./php/instructores/get_list_instructores.php");?>
-<div class="box">
-    <div class="box-header">
-        <h3 class="box-title">Administración y control de instructores</h3>
-        <?php if(RO_LE!=-1){ ?>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newRegister"><i class="fa fa-plus" aria-hidden="true"></i></button>
-        <?php }?>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-        <table id="example2" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Cedula</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Telefono 1</th>
-                    <th>Lugar Residencia</th>
-                    <th>Ingreso Ina</th>
-                    <th>Tipo Nombramiento</th>
-                    <th>Unidad</th>
-                    <th>Sub-Unidad</th>
-                    <th>Estado</th>
-                    <?php if(RO_LE!=-1){ echo"<th>Opciones</th>";} ?>                                      
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($resultado as $k){?>
-                <tr id="row-<?=$k['id']?>">
-                    <td><?=$k['cedula']?></td>
-                    <td><?=$k['nombre']?></td>
-                    <td><?=$k['correo']?></td>
-                    <td><?=$k['telefono1']?></td>
-                    <td><?=$k['lugar_Residencia']?></td>      
-                    <td><?=$k['ingreso_Ina']?></td>
-                    <td><?=$k['nombramiento_nombre']?></td>
-                    <td><?=$k['unidad_nombre']?></td>
-                    <td><?=$k['subunidad_nombre']?></td>
-                    <td><span id="estado-<?=$k['id']?>" class="<?php echo ($k['estado']=='Activo')?'dot_green':'dot_red';?>"></span></td>
-                        <?php if((RO_LE!=-1)){ ?>
-                            <td>
-                                <button type="button" onclick="be_edit_instructor(<?=$k['id']?>)"class="btn btn-info"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                                <?php if($k['estado']!='Inactivo'){?>
-                                <button id="delete-<?=$k['id']?>" type="button" onclick="be_delete_instructor(<?=$k['id']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                <?php }?>
-                            </td>
-                        <?php }else{?>
-                        <td></td>
-                   <?php }?>
-                </tr>
-                <?php }?>
-            </tbody>
-            <tfoot>
-                <tr>
-                   <th>Cedula</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Telefono 1</th>
-                    <th>Lugar Residencia</th>
-                    <th>Ingreso Ina</th>
-                    <th>Tipo Nombramiento</th>
-                    <th>Unidad</th>
-                    <th>Sub-Unidad</th>
-                    <th>Estado</th>
-                    <?php if(RO_LE!=-1){ echo"<th>Opciones</th>";} ?>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <!-- /.box-body -->
-</div>
-<!-- /.box -->
 <!-- MODAL NEW REGISTER -->
 <div class="modal fade" id="newRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -145,7 +73,7 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-3 control-label">Unidad:</label>
                     <div class="col-sm-8">
-                        <select onchange="loadSelectChild($('#unidad').val(),'subUnidad')"  id="unidad" name="unidad" class="form-control">
+                        <select  id="unidad" name="unidad" class="form-control">
                         </select>
                     </div>
                 </div>
@@ -175,12 +103,4 @@
     </div>
   </div>
 </div>
-<script>
-$(document).ready(function() {
-    loadData("instructores");
-    setTimeout(function(){
-        loadSelectChild($('#unidad').val(),'subUnidad');
-    }, 4500);
-})
-</script>
 <!-- END MODAL NEW REGISTER -->

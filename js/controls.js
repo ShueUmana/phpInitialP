@@ -49,7 +49,8 @@ function loadData(option) {
         tablasToGet = ["unidad"];
     }
     $.each(tablasToGet, function(index, value) {
-        $.post('php/load_selects.php', { 'tabla': value })
+        cod_select='none';
+        $.post('php/load_selects.php', { 'tabla': value , 'id_only':cod_select})
             .done(function(data) {
                 $.each(JSON.parse(data), function(p, v) {
                     $('#' + value).append($('<option>', {
@@ -58,9 +59,28 @@ function loadData(option) {
                     }));
                 })
             });
-    })
-
+    });
 }
+
+function loadSelectChild(valor,value){
+    $.post('php/load_selects.php', { 'tabla': value , 'id_only':valor})
+    .done(function(data) {
+        $('#'+value).empty();
+        $('#'+value).prop("disabled", false);
+        if(data==0){
+            $("#"+value).prop('disabled', 'disabled');
+        }else{
+            $.each(JSON.parse(data), function(p, v) {
+                $('#' + value).append($('<option>', {
+                    value: v.val,
+                    text: v.nombre
+                }));
+            })
+        }
+    });
+}
+
+
 
 /**
  * --------- USUARIOS ---------
@@ -161,6 +181,7 @@ function be_edit_instructor(id_edit) {
     $.post('php/instructores/get_instructor.php', { id: id_edit })
         .done(function(data) {
             dataToEdit = JSON.parse(data);
+            loadSelectChild(dataToEdit.unidad,'subUnidad');
             $('#nombre').val(dataToEdit.nombre)
             $('#apellido').val(dataToEdit.apellido)
             $('#cedula').val(dataToEdit.cedula)
@@ -172,7 +193,11 @@ function be_edit_instructor(id_edit) {
             $('#nombramiento').val(dataToEdit.tipo_Nombramiento)
             $('#unidad').val(dataToEdit.unidad)
             $('#status').val(dataToEdit.estado)
-            $('#subUnidad').val(dataToEdit.subunidad)
+            if(dataToEdit.subunidad=='null'){
+                 $('#subUnidad').prop('disabled', 'disabled');
+            }else{
+                $('#subUnidad').val(dataToEdit.subunidad)
+            }
             $('#register_id').val(dataToEdit.id)
             $('#optionType').val('update');
             $('#title_new_update').html('Actualizar el registro')
@@ -286,57 +311,41 @@ function be_edit_unidad(id_edit) {
             $('#newRegister').modal('show');
         });
 }
-/**
- * --------- SUBUNIDADES ---------
- * FUNCIONES PARA CONTROLAR EL CRUD, 
- */
-// funcion para crear nueva subUnidad
-$("#newsubUnidad").submit(function(event) {
-    event.preventDefault();
-    $.post('php/subunidades/insert_subunidad.php', $('#newsubUnidad').serialize())
-        .done(function(data) {
-            if (data) {
-                window.location.replace("index.php?action=subunidades");
-            } else {
-                errorAlert('Control de Datos', 'La acción no pudo ser completada');
-            }
-        });
-});
-
-//funcion para inactivar instructor
-function be_delete_subunidad(id) {
-    $.fn.jAlert.defaults.confirmQuestion = '¿Desea inactivar la Sub-unidad?';
-    $.fn.jAlert.defaults.confirmBtnText = 'Si';
-    $.fn.jAlert.defaults.denyBtnText = 'No';
-    confirm(function(e, btn) { //event + button clicked
-        e.preventDefault();
-        $.post('php/subunidades/delete_subunidad.php', { id_inactiva: id })
-            .done(function(data) {
-                if (data) {
-                    successAlert('Control de Datos', 'El registro fue inactivado exitosamente');
-                    $('#estado-' + id).addClass("dot_red");
-                    $('#estado-' + id).removeClass("dot_green");
-                    $('#delete-' + id).remove();
-                } else {
-                    errorAlert('Control de Datos', 'La acción no pudo ser completada');
-                }
-            });
-    }, function(e, btn) {
-        e.preventDefault();
+function be_list_instructores(id_get){
+    $.post('php/capacitaciones/get_instructores.php', { id: id_get })
+    .done(function(data) {
+        dataGet = JSON.parse(data);
+        $('#content_list').empty();
+        dataGet.forEach(function(element) {
+            $('#content_list').html();
+            $('#content_list').append(
+                '<tr>'+
+                    '<td>'+element.cedula+'</td>'+
+                    '<td>'+element.nombre+'</td>'+
+                    '<td>'+element.correo+'</td>'+
+                    '<td>'+'<button id="delete-'+element.id_instructor+'" type="button" onclick="be_delete_fromHistory('+element.id_instructor+')"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>'+'</td>'+            
+                '</tr>'
+            );
+          });
+        $('#listInstructores').modal('show');
     });
 }
 
-// funcion para editar nombramiento
-function be_edit_subunidad(id_edit) {
-    $.post('php/subunidades/get_subunidad.php', { id: id_edit })
+function be_show_capacitacion(val){
+    $.post('php/capacitaciones/get_capacitaciones.php', { id: val })
         .done(function(data) {
-            dataToEdit = JSON.parse(data);
-            $('#nombre').val(dataToEdit.nombre)
-            $('#estado').val(dataToEdit.estado)
-            $('#unidad').val(dataToEdit.fk_idUnidad)
-            $('#register_id').val(dataToEdit.id_subunidad)
-            $('#optionType').val('update');
-            $('#title_new_update').html('Actualizar el registro')
-            $('#newRegister').modal('show');
+            
+            dataTo = JSON.parse(data);
+            console.log(dataTo)
+            for (var property1 in dataTo) {
+                $('#'+property1+'_info').empty()
+                $('#'+property1+'_info').append(dataTo[property1])
+            }
         });
+    
+   $('#viewCompleteInfo').modal('show');
+}
+
+function be_delete_fromHistory(){
+    alert('Se borrara del historial de la capacitacion')
 }
