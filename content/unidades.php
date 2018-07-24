@@ -1,5 +1,16 @@
 <?php include("./php/unidades/get_list_unidades.php");?>
 <div class="box">
+    <?php if(RO_LE!=-1){ ?>
+    <div class="box-header">
+    
+        <a href="?action=unidades" class="disabled col-md-6 btn btn-default">
+            <span>Unidades</span>
+        </a>
+        <a href="?action=subunidades" class="col-md-6 btn btn-info">
+            <span>Ver Subunidades</span>
+        </a>
+    </div>
+    <?php }?>
     <div class="box-header">
         <h3 class="box-title">Administración y control de unidades</h3>
         <?php if(RO_LE!=-1){ ?>
@@ -7,15 +18,9 @@
         <?php }?>
         
     </div>
-    <div class="box-header">
-    <h4 class="box-title">Ver SubUnidades</h4>
-        <?php if(RO_LE!=-1){ ?>
-            <a href="?action=subunidades" class="btn btn-info" ><i class="fa fa-plus"></i></a>
-        <?php }?>
-    </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="example2" class="table table-bordered table-striped">
+        <table id="example2" class="table table-bordered table-striped full-lengt">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -35,8 +40,6 @@
                             <button id="delete-<?=$k['id_unidad']?>" type="button" onclick="be_delete_unidad(<?=$k['id_unidad']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             <?php }?>
                         </td>
-                    <?php }else{?>
-                    <td></td>
                     <?php }?>
                 </tr>
                 <?php }?>
@@ -73,7 +76,7 @@
         <div class="modal-body">
             <div class="box-body">
                 <div class="form-group">
-                    <label for="nombre" class="col-sm-3 control-label">Nobre:</label>
+                    <label for="nombre" class="col-sm-3 control-label">Nombre:</label>
                     <div class="col-sm-8">
                         <input required type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
                     </div>

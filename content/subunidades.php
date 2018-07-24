@@ -1,5 +1,16 @@
 <?php include("./php/subunidades/get_list_subunidades.php");?>
 <div class="box">
+
+<?php if(RO_LE!=-1){ ?>
+    <div class="box-header">
+        <a href="?action=unidades" class="col-md-6 btn btn-info">
+            <span>Ver Unidades</span>
+        </a>
+        <a href="?action=subunidades" class="disabled col-md-6 btn btn-default">
+            <span>Subunidades</span>
+        </a>
+    </div>
+    <?php }?>
     <div class="box-header">
         <h3 class="box-title">Administración y control de Subunidades</h3>
         <?php if(RO_LE!=-1){ ?>
@@ -7,15 +18,9 @@
         <?php }?>
         
     </div>
-    <div class="box-header">
-    <h4 class="box-title">Regresar a Unidades</h4>
-        <?php if(RO_LE!=-1){ ?>
-            <a href="?action=unidades" class="btn btn-info" ><i class="fa fa-arrow-left"></i></a>
-        <?php }?>
-    </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="example2" class="table table-bordered table-striped">
+        <table id="example2" class="table table-bordered table-striped full-lengt">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -37,8 +42,6 @@
                             <button id="delete-<?=$k['id_subunidad']?>" type="button" onclick="be_delete_subunidad(<?=$k['id_subunidad']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             <?php }?>
                         </td>
-                    <?php }else{?>
-                    <td></td>
                     <?php }?>
                 </tr>
                 <?php }?>

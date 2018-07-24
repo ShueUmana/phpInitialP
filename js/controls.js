@@ -11,6 +11,35 @@ $(document).ready(function() {
     $(document).ajaxComplete(function() {
         $("#wait").css("display", "none");
     });
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+    //controls to datepicker
+    $('.datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        language: 'es',
+        autoclose: true,
+    });
+    $('.yearpicker').datepicker({
+        format: "yyyy",
+        weekStart: 1,
+        orientation: "bottom",
+        language: 'es',
+        keyboardNavigation: false,
+        viewMode: "years",
+        autoclose: true,
+        minViewMode: "years"
+    });
+    $('.select2').select2({
+        placeholder: "Selecciona un instructor"
+    })
+
+    // control para capacitaciones si es necesario capturar el archivo o no
+    $( '#addFile' ).on( 'click', function() {
+        if( $(this).is(':checked') ){
+            $('#input-file').removeClass('hide');
+        } else {
+            $('#input-file').addClass('hide');            
+        }
+    });
 })
 
 // dataTable opciones
@@ -19,7 +48,7 @@ $(function() {
         'paging': true,
         'lengthChange': true,
         'searching': true,
-        'ordering': false,
+        'ordering': true,
         'info': true,
         'autoWidth': false,
         "scrollX": true
@@ -274,8 +303,7 @@ $("#newUnidad").submit(function(event) {
             }
         });
 });
-
-//funcion para inactivar instructor
+//funcion para inactivar unidad
 function be_delete_unidad(id) {
     $.fn.jAlert.defaults.confirmQuestion = '¿Desea inactivar la unidad?';
     $.fn.jAlert.defaults.confirmBtnText = 'Si';
@@ -298,7 +326,7 @@ function be_delete_unidad(id) {
     });
 }
 
-// funcion para editar nombramiento
+// funcion para editar UNidad
 function be_edit_unidad(id_edit) {
     $.post('php/unidades/get_unidad.php', { id: id_edit })
         .done(function(data) {
@@ -311,6 +339,135 @@ function be_edit_unidad(id_edit) {
             $('#newRegister').modal('show');
         });
 }
+/**
+ * --------- SUB-UNIDADES ---------
+ * --------- SUB-UNIDADES ---------
+ * --------- SUB-UNIDADES ---------
+ * FUNCIONES PARA CONTROLAR EL CRUD, 
+ */
+// funcion para crear nueva unidad
+$("#newsubUnidad").submit(function(event) {
+    event.preventDefault();
+    $.post('php/subunidades/insert_subunidad.php', $('#newsubUnidad').serialize())
+        .done(function(data) {
+            if (data) {
+                window.location.replace("index.php?action=subunidades");
+            } else {
+                errorAlert('Control de Datos', 'La acción no pudo ser completada');
+            }
+        });
+});
+//funcion para inactivar unidad
+function be_delete_subunidad(id) {
+    $.fn.jAlert.defaults.confirmQuestion = '¿Desea inactivar la Subunidad?';
+    $.fn.jAlert.defaults.confirmBtnText = 'Si';
+    $.fn.jAlert.defaults.denyBtnText = 'No';
+    confirm(function(e, btn) { //event + button clicked
+        e.preventDefault();
+        $.post('php/subunidades/delete_subunidad.php', { id_inactiva: id })
+            .done(function(data) {
+                if (data) {
+                    successAlert('Control de Datos', 'El registro fue inactivado exitosamente');
+                    $('#estado-' + id).addClass("dot_red");
+                    $('#estado-' + id).removeClass("dot_green");
+                    $('#delete-' + id).remove();
+                } else {
+                    errorAlert('Control de Datos', 'La acción no pudo ser completada');
+                }
+            });
+    }, function(e, btn) {
+        e.preventDefault();
+    });
+}
+
+// funcion para editar UNidad
+function be_edit_subunidad(id_edit) {
+    $.post('php/subunidades/get_subunidad.php', { id: id_edit })
+        .done(function(data) {
+            dataToEdit = JSON.parse(data);
+            $('#nombre').val(dataToEdit.nombre)
+            $('#estado').val(dataToEdit.estado)
+            $('#unidad').val(dataToEdit.fk_idUnidad)
+            $('#register_id').val(dataToEdit.id_subunidad)
+            $('#optionType').val('update');
+            $('#title_new_update').html('Actualizar el registro')
+            $('#newRegister').modal('show');
+        });
+}
+
+/**
+ * --------- CAPACITACIONES  ---------
+ * --------- CAPACITACIONES  ---------
+ * --------- CAPACITACIONES  ---------
+ * FUNCIONES PARA CONTROLAR EL CRUD, 
+ */
+
+ function loadInstructores(){
+    $.post('php/capacitaciones/full_instructores.php')
+    .done(function(data) {
+        $('#instructorSelect').empty();
+        $("#instructorSelect").append('<option></option>')
+        $.each(JSON.parse(data), function(p, v) {
+            $("#instructorSelect").append($('<option>', {
+                value: v.cedula,
+                text: v.nombre
+            }));
+        })
+    });
+ }
+ $('#instructorSelect').on('select2:select', function (e) {
+    var data = e.params.data;
+    $('#identificacion_encargado').val(data.id)
+});
+
+function be_edit_capacitacion(id){
+    $.post('php/capacitaciones/get_capacitaciones.php', { id: id })
+        .done(function(data) {
+            dataToEdit = JSON.parse(data);
+             $('#nombre').val(dataToEdit.nombre)
+             $('#solicitante').val(dataToEdit.solicitante)
+             $('#fecha_Solicitud').val(dataToEdit.fecha_Solicitud)
+             $('#fecha_Inicio').val(dataToEdit.fecha_Inicio)
+             $('#fecha_Finaliza').val(dataToEdit.fecha_Finaliza)
+             $('#anio').val(dataToEdit.anio)
+             $('#documento').val(dataToEdit.documento)
+             $('#instructorSelect').val(dataToEdit.identificacion_encargado).trigger('change');
+             $('#identificacion_encargado').val(dataToEdit.identificacion_encargado)
+             $('#lugar').val(dataToEdit.lugar)
+             $('#unidad').val(dataToEdit.unidad)
+             $('#subUnidad').val(dataToEdit.subUnidad)
+
+            /* datos generales */
+            $('#register_id').val(dataToEdit.id_capacitacion)
+            $('#optionType').val('update');
+            $('#title_new_update').html('Actualizar el registro')
+            $('#newRegister').modal('show');
+        });
+};
+
+// añadir una capacitacion o actualizar
+$("#newCapacitacion").submit(function(event) {
+    event.preventDefault();
+    var datosForm = new FormData(document.forms.namedItem("newCapacitacion"));
+    $.ajax({
+        type: "POST",
+        url: 'php/capacitaciones/insert_capacitaciones.php',
+        data: datosForm,
+        success: function(data){
+            if (data) {
+                window.location.replace("index.php?action=capacitaciones");
+            } else {
+                errorAlert('Control de Datos', data);
+            }
+        },
+        dataType: 'json' ,
+        processData: false,
+        contentType: false,
+        cache: false
+    });
+});
+
+
 function be_list_instructores(id_get){
     $.post('php/capacitaciones/get_instructores.php', { id: id_get })
     .done(function(data) {
@@ -319,11 +476,11 @@ function be_list_instructores(id_get){
         dataGet.forEach(function(element) {
             $('#content_list').html();
             $('#content_list').append(
-                '<tr>'+
+                '<tr id=historial-'+element.id_historial+'>'+
                     '<td>'+element.cedula+'</td>'+
                     '<td>'+element.nombre+'</td>'+
                     '<td>'+element.correo+'</td>'+
-                    '<td>'+'<button id="delete-'+element.id_instructor+'" type="button" onclick="be_delete_fromHistory('+element.id_instructor+')"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>'+'</td>'+            
+                    '<td>'+'<button id="delete-'+element.id_historial+'" type="button" onclick="be_delete_fromHistory('+element.id_historial+')"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>'+'</td>'+            
                 '</tr>'
             );
           });
@@ -334,18 +491,34 @@ function be_list_instructores(id_get){
 function be_show_capacitacion(val){
     $.post('php/capacitaciones/get_capacitaciones.php', { id: val })
         .done(function(data) {
-            
             dataTo = JSON.parse(data);
-            console.log(dataTo)
             for (var property1 in dataTo) {
                 $('#'+property1+'_info').empty()
-                $('#'+property1+'_info').append(dataTo[property1])
+                if(property1=='documento'){
+                    if(dataTo[property1]!=null){
+                        url='php/capacitaciones/solicitudCapacitaciones/'
+                        icon='<a href="'+url+dataTo[property1]+'" download><i class="fa fa-file-text-o" aria-hidden="true"></i></a>'
+                    }else{
+                        icon='<i class="fa fa-ban" aria-hidden="true"></i>';
+                    }
+                    $('#'+property1+'_info').append(icon)
+                }else{
+                    $('#'+property1+'_info').append(dataTo[property1])
+                }
+                
             }
+            $('#viewCompleteInfo').modal('show');
         });
-    
-   $('#viewCompleteInfo').modal('show');
 }
 
-function be_delete_fromHistory(){
-    alert('Se borrara del historial de la capacitacion')
+function be_delete_fromHistory(val){
+    $('#historial-'+val).remove();
+    $.post('php/capacitaciones/delete_integrante_capacitacion.php', { id: val })
+        .done(function(data) {
+            if(data){
+                successAlert('Control de Datos', 'El registro fue borrado exitosamente');
+            } else {
+                errorAlert('Control de Datos', 'La acción no pudo ser completada');
+            }
+        });
 }

@@ -8,7 +8,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="example2" class="table table-bordered table-striped">
+        <table id="example2" class="table table-bordered table-striped full-lengt">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -32,9 +32,7 @@
                                 <button type="button" onclick="be_edit_capacitacion(<?=$k['id_capacitacion']?>)"class="btn btn-info"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 <button id="delete-<?=$k['id_capacitacion']?>" type="button" onclick="be_delete_capacitacion(<?=$k['id_capacitacion']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td> 
-                        <?php }else{?>
-                        <td></td>
-                   <?php }?>
+                        <?php }?>
                 </tr>
                 <?php }?>
             </tbody>
@@ -57,6 +55,9 @@
 <?php include("modalCapacitaciones/ver_info.php"); ?>
 <script>
 $(document).ready(function() {
-    loadData("instructores")
+    loadData("instructores");
+    setTimeout(function(){
+        loadSelectChild($('#unidad').val(),'subUnidad');
+    }, 4500);
 });
 </script>

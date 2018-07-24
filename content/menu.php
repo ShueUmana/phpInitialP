@@ -34,27 +34,33 @@
         <!-- ##################  -->
         <!--  USUARIOS  -->
         <!-- ##################  -->
+<!--
         <li class="" id="usuarios">
             <a href="index.php?action=usuarios">
             <i class="fa fa-user"></i> <span>Usuarios</span>
             </a>
         </li>
+-->
         <!-- ##################  -->
         <!--  Unidades  -->
         <!-- ##################  -->
+        <?php if((RO_LE!=-1)){ ?>
         <li class="" id="unidades">
             <a href="index.php?action=unidades">
             <i class="fa fa-code-fork"></i> <span>Unidades</span>
             </a>
         </li>
+        <?php }?>
         <!-- ##################  -->
         <!--  Nombramientos  -->
         <!-- ##################  -->
+        <?php if((RO_LE!=-1)){ ?>
         <li class="" id="nombramientos">
             <a href="index.php?action=nombramientos">
             <i class="fa fa-bullhorn"></i> <span>Nombramientos</span>
             </a>
         </li>
+        <?php }?>
         <!-- ##################  -->
         <!--  Reportes  -->
         <!-- ##################  -->

@@ -5,3 +5,13 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background: #e6e6e6
 }
+.full-lengt{
+    width: 100% !important;
+}
+.dataTables_scrollHeadInner{
+    width: 100% !important;
+}
+
+.dataTable{
+    width: 100% !important;
+}

@@ -13,7 +13,8 @@
         <div class="modal-body">
             <div class="box-body">
                 <!-- ****************************** -->
-                <div class="col-md-12">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <div class="box box-solid">
                         <div class="box-header with-border">
                         <i class="fa fa-info"></i>
@@ -37,8 +38,6 @@
                         <dd id="anio_info"></dd>
                         <dt>Documento:</dt>
                         <dd id="documento_info"></dd>
-                        <dt>Udipe:</dt>
-                        <dd id="nombre_Udipe_info"></dd>
                         <dt>Lugar:</dt>
                         <dd id="lugar_info"></dd>
                         <dt>Instructor:</dt>
@@ -56,6 +55,7 @@
                     </div>
                     <!-- /.box -->
                     </div>
+                    <div class="col-md-2"></div>
                 <!-- ****************************** -->
             </div>
             <!-- /.box-body -->

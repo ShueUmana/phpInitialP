@@ -1,7 +1,7 @@
  <?php
     include("../../php/db_conn.php");
 
-    $sql = "select histo.id_instructor, ins.cedula, ins.nombre, ins.correo from historial_capacitaciones as histo
+    $sql = "select histo.id_historial, histo.id_instructor, ins.cedula, ins.nombre, ins.correo from historial_capacitaciones as histo
     INNER JOIN instructores as ins
     on ins.id=histo.id_instructor
 where id_capacitacion=".$_POST['id'];

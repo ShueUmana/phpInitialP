@@ -8,7 +8,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="example2" class="table table-bordered table-striped">
+        <table id="example2" class="table table-bordered table-striped full-lengt">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -28,8 +28,6 @@
                             <button id="delete-<?=$k['id_nombramiento']?>" type="button" onclick="be_delete_nombramiento(<?=$k['id_nombramiento']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             <?php }?>
                         </td>
-                    <?php }else{?>
-                    <td></td>
                     <?php }?>
                 </tr>
                 <?php }?>

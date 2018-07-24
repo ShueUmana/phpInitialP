@@ -8,7 +8,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="example2" class="table table-bordered table-striped">
+        <table id="example2" class="table table-bordered table-striped full-lengt">
             <thead>
                 <tr>
                     <th>Cedula</th>
@@ -17,6 +17,7 @@
                     <th>Telefono 1</th>
                     <th>Lugar Residencia</th>
                     <th>Ingreso Ina</th>
+                    <th>Puesto</th>
                     <th>Tipo Nombramiento</th>
                     <th>Unidad</th>
                     <th>Sub-Unidad</th>
@@ -33,6 +34,7 @@
                     <td><?=$k['telefono1']?></td>
                     <td><?=$k['lugar_Residencia']?></td>      
                     <td><?=$k['ingreso_Ina']?></td>
+                    <td><?=$k['puesto']?></td>
                     <td><?=$k['nombramiento_nombre']?></td>
                     <td><?=$k['unidad_nombre']?></td>
                     <td><?=$k['subunidad_nombre']?></td>
@@ -44,9 +46,7 @@
                                 <button id="delete-<?=$k['id']?>" type="button" onclick="be_delete_instructor(<?=$k['id']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 <?php }?>
                             </td>
-                        <?php }else{?>
-                        <td></td>
-                   <?php }?>
+                        <?php }?>
                 </tr>
                 <?php }?>
             </tbody>
@@ -58,6 +58,7 @@
                     <th>Telefono 1</th>
                     <th>Lugar Residencia</th>
                     <th>Ingreso Ina</th>
+                    <th>Puesto</th>
                     <th>Tipo Nombramiento</th>
                     <th>Unidad</th>
                     <th>Sub-Unidad</th>
@@ -132,7 +133,13 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-3 control-label">Ingreso Ina:</label>
                     <div class="col-sm-8">
-                        <input  type="date" class="form-control" id="ingresoIna" name="ingresoIna" placeholder="Ingreso Ina">
+                        <input  type="text" class="datepicker form-control" id="ingresoIna" name="ingresoIna" placeholder="Ingreso Ina">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Puesto:</label>
+                    <div class="col-sm-8">
+                    <input  type="text" class="form-control" id="puesto" name="puesto" placeholder="Puesto">
                     </div>
                 </div>
                 <div class="form-group">

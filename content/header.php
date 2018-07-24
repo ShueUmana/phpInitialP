@@ -25,10 +25,6 @@
               <!-- User image -->
               <li class="user-header">
                 <img src="dist/img/avatar5.png" class="img-circle" alt="User Image">
-
-
-
-
                 <p>
                 <?=$_SESSION["name_user"]?> - <?=ucfirst($_SESSION["role"])?>
                   <small><?=$_SESSION["correo"]?></small>
@@ -40,6 +36,12 @@
                   <button type="submit" id="log-out" class="btn btn-danger">
                     Cerrar Sesión
                   </button>
+                </div>
+                <div class="pull-left">
+                  <a href="index.php?action=usuarios" type="submit" id="log-out" class="btn btn-info">
+                  <i class="fa fa-user"></i> <span>Usuarios</span>
+                  </a>
+          
                 </div>
               </li>
             </ul>

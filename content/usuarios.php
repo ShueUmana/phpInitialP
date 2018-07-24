@@ -2,14 +2,14 @@
 
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Administración y control de usuarios</h3>
+        <h3 class="box-title">Administración de usuarios del sistema </h3>
         <?php if(RO_LE!=-1){ ?>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newRegister"><i class="fa fa-plus" aria-hidden="true"></i></button>
         <?php }?>
     </div>
     <!-- /.box-header -->
-    <div class="box-body table-responsive">
-        <table id="example2" class="table  table-bordered table-striped">
+    <div class="box-body ">
+    <table id="example2" class="table table-bordered table-striped full-lengt">
             <thead>
                 <tr>
                     <th>Correo</th>
@@ -38,10 +38,7 @@
                                 <button type="button" onclick="be_delete_User(<?=$k['id_user']?>)"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         <?php }?>
-                    <?php }else{ ?>
-                        <td></td>
-                   <?php }?>
-                    
+                    <?php } ?>                 
                 </tr>
                 <?php }?>
             </tbody>

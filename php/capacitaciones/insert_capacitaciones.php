@@ -1,31 +1,113 @@
 <?php
-    
+    // revision por si se adjunto el documento de solicitud
+    $nombre_archivo='';
+    if(!$_FILES['documento']['error']==4){
+        $directorio = "solicitudCapacitaciones/";
+        $nombre_archivo=str_replace(' ', '', uniqid().$_FILES["documento"]["name"]);
+        $archivo_local = $directorio . basename($nombre_archivo);
+        if ($_FILES["documento"]["size"] > 5000000) {
+            echo 'Disculpa el archivo debe ser menos de 5Mb'; // archivo muy grande
+            exit;
+        }
+        if (move_uploaded_file($_FILES["documento"]["tmp_name"], $archivo_local)) {
+            $fileOk=1;
+        } else {
+            echo "Disculpa hubo inconvenientes con el archivo. Intenta de nuevo.";
+            exit;
+        }
+    }else{$nofile=1;}// end revision de documento
     if($_POST["optionType"]=="new"){
-        if($_POST['status']=='Inactivo'){
-            $field_fecha_inactivacion=', fecha_inactivacion';
-            $fecha_inactivacion=', now()';
-        }else{ $field_fecha_inactivacion='';$fecha_inactivacion=''; }
         include("../../php/db_conn.php");
-        $sql = "insert into instructores (cedula,nombre,apellido,correo,telefono1,telefono2,lugar_residencia,ingreso_Ina,tipo_Nombramiento,unidad,subunidad,estado".$field_fecha_inactivacion.")
-    values ('".$_POST['cedula']."','".$_POST['nombre']."','".$_POST['apellido']."','".$_POST['correo']."','".$_POST['telefono1']."','".$_POST['telefono2']."','".$_POST['residencia']."','".$_POST['ingresoIna']."','".$_POST['nombramiento']."','".$_POST['unidad']."','".$_POST['subUnidad']."','".$_POST['status']."'".$fecha_inactivacion.");";
+        $sql = "insert into capacitacion 
+		(	nombre,
+			solicitante,
+			fecha_Solicitud,
+			fecha_Inicio,
+			fecha_Finaliza,
+			anio,
+			documento,
+			identificacion_encargado,
+			lugar,
+			unidad,
+			subUnidad)
+    values (
+			'".$_POST['nombre']."',
+			'".$_POST['solicitante']."',
+			'".date("Y-m-d", strtotime($_POST['fecha_Solicitud']))."',
+			'".date("Y-m-d", strtotime($_POST['fecha_Inicio']))."',
+			'".date("Y-m-d", strtotime($_POST['fecha_Finaliza']))."',
+			'".$_POST['anio']."',
+			'".$nombre_archivo."',
+			'".$_POST['identificacion_encargado']."',
+			'".$_POST['lugar']."',
+			'".$_POST['unidad']."',
+			'".$_POST['subUnidad']."'
+			);";
         if (mysqli_query($conn, $sql)) {
             echo true;
         } else {
-            echo false;
+            echo 'La acción no pudo ser completada';
         }
         mysqli_close($conn);
     }
     if($_POST["optionType"]=="update"){
-        if($_POST['status']=='Inactivo'){
-            $field_fecha_inactivacion=', fecha_inactivacion=';
-            $fecha_inactivacion='now()';
-        }else{ $field_fecha_inactivacion=', fecha_inactivacion=';$fecha_inactivacion='0000-00-00'; }
         include("../../php/db_conn.php");
-        $sql = "update instructores set cedula = '".$_POST["cedula"]."', nombre = '".$_POST["nombre"]."', apellido='".$_POST["apellido"]."', correo='".$_POST["correo"]."', telefono1='".$_POST["telefono1"]."', telefono2='".$_POST["telefono2"]."', lugar_Residencia='".$_POST["residencia"]."', ingreso_Ina='".$_POST["ingresoIna"]."', tipo_Nombramiento='".$_POST["nombramiento"]."', unidad='".$_POST["unidad"]."', subunidad='".$_POST["subUnidad"]."', estado='".$_POST["status"]."'".$field_fecha_inactivacion.$fecha_inactivacion." where id=".$_POST["register_id"].";";
+        if($nofile){
+            $sql = "insert into capacitacion 
+            (	nombre,
+                solicitante,
+                fecha_Solicitud,
+                fecha_Inicio,
+                fecha_Finaliza,
+                anio,
+                identificacion_encargado,
+                lugar,
+                unidad,
+                subUnidad)
+        values (
+                '".$_POST['nombre']."',
+                '".$_POST['solicitante']."',
+                '".date("Y-m-d", strtotime($_POST['fecha_Solicitud']))."',
+                '".date("Y-m-d", strtotime($_POST['fecha_Inicio']))."',
+                '".date("Y-m-d", strtotime($_POST['fecha_Finaliza']))."',
+                '".$_POST['anio']."',
+                '".$_POST['identificacion_encargado']."',
+                '".$_POST['lugar']."',
+                '".$_POST['unidad']."',
+                '".$_POST['subUnidad']."'
+                );";
+        }else{
+            $sql = "insert into capacitacion 
+            (	nombre,
+                solicitante,
+                fecha_Solicitud,
+                fecha_Inicio,
+                fecha_Finaliza,
+                anio,
+                documento,
+                identificacion_encargado,
+                lugar,
+                unidad,
+                subUnidad)
+        values (
+                '".$_POST['nombre']."',
+                '".$_POST['solicitante']."',
+                '".date("Y-m-d", strtotime($_POST['fecha_Solicitud']))."',
+                '".date("Y-m-d", strtotime($_POST['fecha_Inicio']))."',
+                '".date("Y-m-d", strtotime($_POST['fecha_Finaliza']))."',
+                '".$_POST['anio']."',
+                '".$nombre_archivo."',
+                '".$_POST['identificacion_encargado']."',
+                '".$_POST['lugar']."',
+                '".$_POST['unidad']."',
+                '".$_POST['subUnidad']."'
+                );";
+        }
+       
         if (mysqli_query($conn, $sql)) {
             echo true;
         } else {
-            echo false;
+            echo 'La acción no pudo ser completada';
         }
         mysqli_close($conn);
     }

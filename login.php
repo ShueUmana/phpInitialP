@@ -75,7 +75,7 @@ if(isset($_SESSION['correo'])){
                     </form>
 
                     <!-- /.social-auth-links -->
-                    <a href="#" id="forgot" class="text-center">Olvide mi contraseña</a><br>
+                    <a href="#" id="forgot" class="text-center">¿Problemas para ingresar?</a><br>
                 </div>
                 <h4 align="center">UDIPE, INA</h4>
                 <!-- /.login-box-body -->

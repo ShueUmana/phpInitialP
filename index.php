@@ -1,10 +1,11 @@
 <?php 
 include('./php/validate_session.php');
 include('./php/functions_system.php');
-define("RO_LE",getRoleAccess($_SESSION['role']));
+define("RO_LE", getRoleAccess($_SESSION['role']));
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,13 +31,16 @@ define("RO_LE",getRoleAccess($_SESSION['role']));
   <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <!-- DataTables -->
+  <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="plugins/jAlert/jAlert.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
   <link rel="stylesheet" href="css/tables.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/formWizard.css">
 
-<!-- jQuery 3 -->
+  <!-- jQuery 3 -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -51,18 +55,21 @@ define("RO_LE",getRoleAccess($_SESSION['role']));
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-    <?php
-        include('./content/header.php');
-        include('./content/menu.php');
-        include('./content/content.php');
-        include('./content/footer.php');
-    ?>
-</div>
-<!-- ./wrapper -->
 
-<div id="wait" class="spinner"><img src='images/spinner.gif' width="64" height="64" /><br>Un momento, por favor...</div>
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+    <?php
+    include('./content/header.php');
+    include('./content/menu.php');
+    include('./content/content.php');
+    include('./content/footer.php');
+    ?>
+  </div>
+  <!-- ./wrapper -->
+
+  <div id="wait" class="spinner">
+    <img src='images/spinner.gif' width="64" height="64" />
+    <br>Un momento, por favor...</div>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button);
@@ -74,6 +81,7 @@ define("RO_LE",getRoleAccess($_SESSION['role']));
   <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
   <!-- datepicker -->
   <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
   <!-- DataTables -->
   <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -86,13 +94,17 @@ define("RO_LE",getRoleAccess($_SESSION['role']));
   <script src="plugins/jAlert/jAlert-functions.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
+
+  <!-- Select2 -->
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
   <script src="js/controls.js"></script>
+  <script src="js/formWizard.js"></script>
   <script>
-    
-$(document).ready(function() {
-    //CONTROL DE MENU ACTIVO
-    $('#<?=(isset($_GET["action"])) ? $_GET["action"] : "inicio"?>').addClass('active');
-});
+    $(document).ready(function () {
+      //CONTROL DE MENU ACTIVO
+      $('#<?= (isset($_GET["action"])) ? $_GET["action"] : "inicio" ?>').addClass('active');
+    });
   </script>
 </body>
+
 </html>
